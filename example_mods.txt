@@ -1,0 +1,20 @@
+# Example Factorio Mods List
+# Add your mod filenames below (one per line)
+# Format: modname_version.zip
+# Example: aai-vehicles-hauler_0.7.3.zip
+
+# To use this file:
+# 1. Replace the example mods with your actual mod filenames
+# 2. Save the file as mods.txt (or your preferred name)
+# 3. Load it in the Factorio Mod Manager GUI
+
+# Mining and resources
+bobsgoldfurnace_0.18.0.zip
+bobassembly_0.18.2.zip
+
+# Vehicles and logistics
+aai-vehicles-hauler_0.7.3.zip
+aai-vehicles-flame-tumbler_0.7.2.zip
+
+# Quality of life
+factorio-very-beltworks_0.2.1.zip

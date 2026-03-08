@@ -1,0 +1,13 @@
+{
+  "REQUEST_TIMEOUT": 120,
+  "MAX_RETRIES": 5,
+  "BACKOFF_BASE": 1.4,
+  "RANDOM_DELAY_MIN": 0.5,
+  "RANDOM_DELAY_MAX": 2.0,
+  "MAX_WORKERS": 4,
+  "SAVE_IMAGES": true,
+  "SAVE_RELEASES": false,
+  "DOWNLOAD_ZIPS": true,
+  "SAVE_CHANGELOG": false,
+  "MIRROR_URLS": "https://mods-storage.re146.dev"
+}
