@@ -56,25 +56,29 @@ class ModManager:
     
     def process_mod(self, filename):
         """
-        Process a single mod file.
+        Process a single mod file or mod name.
         
         Workflow:
-        1. Parse filename to extract mod name and version
+        1. Parse filename/name to extract mod name and version (version optional)
         2. Fetch metadata from API
-        3. Save CSV row
-        4. Download images if enabled
-        5. Download mod ZIP if enabled
-        6. Save release information if enabled
+        3. If version not provided, use latest from API
+        4. Save CSV row
+        5. Download images if enabled
+        6. Download mod ZIP if enabled
+        7. Save release information if enabled
         
         Args:
-            filename (str): Mod filename (e.g., 'aai-vehicles-hauler_0.7.3.zip')
+            filename (str): Mod filename or name:
+                - 'aai-vehicles-hauler_0.7.3.zip' -> versioned filename
+                - 'aai-vehicles-hauler.zip' -> unversioned filename
+                - 'aai-vehicles-hauler' -> simple mod name
             
         Returns:
             bool: True if successful, False otherwise
         """
         logger.info(f"[PROCESS] Starting: {filename}")
         
-        # Parse filename
+        # Parse filename/name
         parsed = parse_mod_filename(filename)
         if not parsed['valid']:
             logger.error(f"[PARSE ERROR] {parsed['error']}")
@@ -84,6 +88,8 @@ class ModManager:
         
         mod_name = parsed['mod_name']
         local_version = parsed['version']
+        
+        logger.debug(f"[PROCESS] Parsed: mod_name={mod_name}, version={local_version}, is_filename={parsed.get('is_filename', False)}")
         
         # Fetch metadata
         logger.debug(f"[API] Fetching metadata for {mod_name}")

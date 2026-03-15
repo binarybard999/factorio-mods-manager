@@ -13,6 +13,10 @@ from config.settings import get_settings
 from storage.file_store import FileStore
 from ui.app import FactorioModManagerApp
 
+# Version information
+VERSION = "2.0.0"
+VERSION_NAME = "Modern UI Release"
+
 
 def setup_logging():
     """
