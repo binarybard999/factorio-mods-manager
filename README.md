@@ -1,6 +1,6 @@
 # Factorio Mod Manager
 
-**Version: 2.0.0** - Modern UI Release
+**Version: 2.0.1** - Architecture Refactoring Release
 
 A modern, feature-rich desktop application for downloading, updating, and managing Factorio mods without requiring login to the Factorio mod portal.
 
@@ -38,6 +38,18 @@ A modern, feature-rich desktop application for downloading, updating, and managi
 - 📊 **Dual Processing Tabs** - Process mods from files OR update existing mods folders
 - 🎯 **Improved UX** - Better error messages, progress tracking, and visual hierarchy
 - 🌓 **Enhanced Themes** - Light/Dark/System themes with modern color scheme
+
+### Version 2.0.1 Updates (Architecture Refactoring)
+- 🏗️ **UI Layer Restructuring** - Refactored monolithic `app.py` (1050 lines) into 8 focused modules:
+  - `main_window.py` (125 lines) - Main application window orchestrator
+  - `tabs/list_processing_tab.py` (306 lines) - Mod list processing component
+  - `tabs/folder_updates_tab.py` (258 lines) - Folder update component
+  - `components/` folder - Reusable UI components (progress panel, file browser, drag-drop)
+  - `controllers/theme_controller.py` (97 lines) - Centralized theme management
+- 📦 **Improved Code Organization** - Each module ≤ 306 lines with clear responsibilities
+- 🎯 **Better Separation of Concerns** - Components are now independently testable and reusable
+- 🗂️ **Archive System** - Deprecated files safely archived in `_archive/` folder for future reference
+- 🚀 **Foundation for Future Phases** - Scalable architecture ready for Phase 2+ refactoring
 
 ## 📊 Architecture
 
@@ -93,18 +105,37 @@ factorio_mods_manager/
 │   ├── __init__.py
 │   └── helpers.py                       # Generic utility functions
 │
-├── ui/
-│   ├── __init__.py
-│   ├── app.py                           # Main GUI window (PySide6)
+├── ui/                                  # GUI Layer (Refactored v2.0.1)
+│   ├── main_window.py                   # Main application window orchestrator
 │   ├── worker.py                        # Background worker threads
 │   ├── theme.py                         # Theme management
-│   └── settings_dialog.py               # Settings dialog
+│   ├── modern_theme.py                  # Modern theme with colors & styles
+│   ├── settings_dialog.py               # Settings dialog
+│   │
+│   ├── tabs/                            # Tab components (v2.0.1+)
+│   │   ├── base_tab.py                  # Base class for all tabs
+│   │   ├── list_processing_tab.py       # Mod list processing from files
+│   │   └── folder_updates_tab.py        # Update mods in existing folder
+│   │
+│   ├── components/                      # Reusable UI components (v2.0.1+)
+│   │   ├── progress_panel.py            # Progress bar + log display
+│   │   ├── drag_drop_input.py           # Drag-drop enabled line edit
+│   │   └── file_browser.py              # File & folder picker widgets
+│   │
+│   └── controllers/                     # UI controllers (v2.0.1+)
+│       └── theme_controller.py          # Centralized theme control
 │
 └── data/                                # Runtime data directories
     ├── downloads/                       # Downloaded mod ZIP files
     ├── images/                          # Downloaded mod images
     ├── releases/                        # Release information CSV files
     └── failed/                          # Failed mod lists
+
+└── _archive/                            # Archive for deprecated files (v2.0.1+)
+    ├── app.py                           # Legacy UI (replaced by main_window.py)
+    ├── app_basic.py                     # Old version backup
+    ├── app_old.py                       # Old version backup
+    └── modern_theme_old.py              # Legacy theme file
 ```
 
 ## 🚀 Installation
